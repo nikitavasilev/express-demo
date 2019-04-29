@@ -4,6 +4,12 @@ const app = express();
 
 app.use(express.json());
 
+// Custom Middleware function
+app.use((req, res, next) => {
+  console.log('Logging...');
+  next();
+});
+
 const genres = [
   { id: 1, name: 'Drama' },
   { id: 2, name: 'Comedy' },
