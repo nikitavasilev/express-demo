@@ -1,14 +1,10 @@
 const Joi = require('@hapi/joi');
+const logger = require('./logger');
 const express = require('express');
 const app = express();
 
 app.use(express.json());
-
-// Custom Middleware function
-app.use((req, res, next) => {
-  console.log('Logging...');
-  next();
-});
+app.use(logger);
 
 const genres = [
   { id: 1, name: 'Drama' },
