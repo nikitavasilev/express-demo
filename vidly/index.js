@@ -2,12 +2,17 @@ const helmet = require('helmet');
 const Joi = require('@hapi/joi');
 const logger = require('./logger');
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
+
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`app: ${app.get('env')}`);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(helmet());
+app.use(morgan());
 
 app.use(logger);
 
