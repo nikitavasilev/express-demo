@@ -1,5 +1,7 @@
 const startupDebugger = require('debug')('app:startup');
 const dbDebugger = require('debug')('app:db');
+// or debug(); instead of console.log();
+// const debug = require('debug')('app:startup'):
 const config = require('config');
 const helmet = require('helmet');
 const Joi = require('@hapi/joi');
@@ -7,6 +9,9 @@ const logger = require('./logger');
 const morgan = require('morgan');
 const express = require('express');
 const app = express();
+
+app.set('view engine', 'pug');
+app.set('views', './views'); // default
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -37,6 +42,10 @@ const genres = [
 
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname });
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', { title: 'My about page', message: 'Hello' });
 });
 
 app.get('/api/genres', (req, res) => {
